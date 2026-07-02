@@ -1,5 +1,5 @@
 import express from "express";
-import firebaseConfig from "../firebase-applet-config.json";
+import https from "https";
 
 const app = express();
 
@@ -29,23 +29,41 @@ app.post("/api/admin/login-password", async (req, res) => {
       });
     }
 
-    // Check if custom password exists in Firestore under admin_users/{email} via REST API
+    // Check if custom password exists in Firestore under admin_users/{email} via REST API using standard HTTPS module
     let correctPassword = targetEmail === "jeevanparivartan2@gmail.com" ? "Nashamukti@9082" : "David@9082";
     
-    if (firebaseConfig && firebaseConfig.projectId && firebaseConfig.firestoreDatabaseId) {
-      try {
-        const url = `https://firestore.googleapis.com/v1/projects/${firebaseConfig.projectId}/databases/${firebaseConfig.firestoreDatabaseId}/documents/admin_users/${encodeURIComponent(targetEmail)}`;
-        const response = await fetch(url);
-        if (response.ok) {
-          const docData = await response.json();
-          const customPasswordValue = docData?.fields?.customPassword?.stringValue;
-          if (customPasswordValue && customPasswordValue.trim() !== "") {
-            correctPassword = customPasswordValue.trim();
-          }
+    const projectId = "gen-lang-client-0753001234";
+    const databaseId = "ai-studio-remix2jeevanpari-7214a054-6fbb-4e2d-a5a3-b89db870a572";
+    
+    try {
+      const url = `https://firestore.googleapis.com/v1/projects/${projectId}/databases/${databaseId}/documents/admin_users/${encodeURIComponent(targetEmail)}`;
+      
+      const docData = await new Promise<any>((resolve, reject) => {
+        https.get(url, (response) => {
+          let data = "";
+          response.on("data", (chunk) => { data += chunk; });
+          response.on("end", () => {
+            if (response.statusCode === 200) {
+              try { resolve(JSON.parse(data)); } catch (e) { reject(e); }
+            } else if (response.statusCode === 404) {
+              resolve(null);
+            } else {
+              reject(new Error(`Firestore REST API returned status code ${response.statusCode}`));
+            }
+          });
+        }).on("error", (err) => {
+          reject(err);
+        });
+      });
+
+      if (docData) {
+        const customPasswordValue = docData?.fields?.customPassword?.stringValue;
+        if (customPasswordValue && customPasswordValue.trim() !== "") {
+          correctPassword = customPasswordValue.trim();
         }
-      } catch (dbErr) {
-        console.error("[Firebase REST] Failed to fetch custom password from Firestore REST API, falling back to default:", dbErr);
       }
+    } catch (dbErr) {
+      console.error("[Firestore HTTPS] Failed to fetch custom password, falling back to default:", dbErr);
     }
 
     // Verify password
