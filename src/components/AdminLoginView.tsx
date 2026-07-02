@@ -8,7 +8,13 @@ interface AdminLoginViewProps {
 }
 
 export default function AdminLoginView({ onLoginSuccess, onNavigateHome }: AdminLoginViewProps) {
-  // Login Form States - Prepopulated with the new requested credentials for instant, smooth access
+  // Available Admin Profiles
+  const adminProfiles = [
+    { email: 'diwaspal9@gmail.com', label: 'Diwas Pal' },
+    { email: 'jeevanparivartan2@gmail.com', label: 'Jeevan Parivartan' }
+  ];
+
+  // Login Form States - Default prefilled with the first profile
   const [email, setEmail] = useState('diwaspal9@gmail.com');
   const [password, setPassword] = useState('David@9082');
   const [showPassword, setShowPassword] = useState(false);
@@ -60,8 +66,8 @@ export default function AdminLoginView({ onLoginSuccess, onNavigateHome }: Admin
     }
   };
 
-  const handleQuickReset = () => {
-    setEmail('diwaspal9@gmail.com');
+  const handleProfileSelect = (selectedEmail: string) => {
+    setEmail(selectedEmail);
     setPassword('David@9082');
     setError('');
     setSuccessMessage('');
@@ -117,14 +123,32 @@ export default function AdminLoginView({ onLoginSuccess, onNavigateHome }: Admin
           {/* Subtle top glow line */}
           <div className="absolute top-0 left-0 right-0 h-[1.5px] bg-gradient-to-r from-transparent via-teal-500/50 to-transparent"></div>
 
-          {/* Verification Status Header */}
-          <div className="mb-8 p-4 rounded-2xl bg-teal-950/30 border border-teal-500/20 text-xs flex items-start gap-3">
-            <ShieldCheck className="w-5 h-5 text-teal-400 flex-shrink-0 mt-0.5" />
-            <div className="space-y-1">
-              <p className="font-bold text-teal-300">Secure Database Verification</p>
-              <p className="text-[11px] text-slate-350 leading-relaxed">
-                Authorized credentials are fully pre-filled below for seamless access. Press the submit button to enter.
-              </p>
+          {/* Profile Quick Selector */}
+          <div className="mb-6 space-y-2.5">
+            <label className="block text-xs font-bold uppercase tracking-wider text-slate-400">
+              Select Admin Profile
+            </label>
+            <div className="grid grid-cols-2 gap-2 bg-slate-950/60 p-1.5 rounded-2xl border border-slate-800/80">
+              {adminProfiles.map((profile) => {
+                const isActive = email.toLowerCase() === profile.email.toLowerCase();
+                return (
+                  <button
+                    key={profile.email}
+                    type="button"
+                    onClick={() => handleProfileSelect(profile.email)}
+                    className={`py-3 px-4 rounded-xl text-xs font-bold transition-all cursor-pointer flex flex-col items-center justify-center gap-1 ${
+                      isActive
+                        ? 'bg-gradient-to-r from-teal-600 to-emerald-600 text-slate-950 shadow-lg shadow-teal-500/10'
+                        : 'text-slate-400 hover:text-slate-250 hover:bg-slate-900/40'
+                    }`}
+                  >
+                    <span>{profile.label}</span>
+                    <span className={`text-[9px] font-medium font-mono ${isActive ? 'text-slate-900/70' : 'text-slate-500'}`}>
+                      {profile.email}
+                    </span>
+                  </button>
+                );
+              })}
             </div>
           </div>
 
@@ -160,21 +184,9 @@ export default function AdminLoginView({ onLoginSuccess, onNavigateHome }: Admin
           {/* Form */}
           <form onSubmit={handlePasswordLogin} className="space-y-6">
             <div className="space-y-2">
-              <div className="flex justify-between items-center">
-                <label className="block text-xs font-bold uppercase tracking-wider text-slate-450">
-                  Email Address
-                </label>
-                {(email !== 'diwaspal9@gmail.com' || password !== 'David@9082') && (
-                  <button
-                    type="button"
-                    onClick={handleQuickReset}
-                    className="text-[10px] font-bold text-teal-400 hover:text-teal-300 flex items-center gap-1 cursor-pointer transition-colors"
-                  >
-                    <RefreshCw className="w-3 h-3" />
-                    Reset to Default
-                  </button>
-                )}
-              </div>
+              <label className="block text-xs font-bold uppercase tracking-wider text-slate-450">
+                Email Address
+              </label>
               <div className="relative group">
                 <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 group-focus-within:text-teal-400 transition-colors">
                   <Mail className="w-5 h-5" />
@@ -242,11 +254,11 @@ export default function AdminLoginView({ onLoginSuccess, onNavigateHome }: Admin
         {/* Security badges */}
         <div className="flex justify-center items-center gap-6 text-[10px] text-slate-500 font-mono font-bold tracking-wider">
           <span className="flex items-center gap-1.5 uppercase">
-            <BadgeCheck className="w-4 h-4 text-teal-550" />
+            <BadgeCheck className="w-4 h-4 text-teal-555" />
             256-Bit SSL Secured
           </span>
           <span className="flex items-center gap-1.5 uppercase">
-            <BadgeCheck className="w-4 h-4 text-teal-550" />
+            <BadgeCheck className="w-4 h-4 text-teal-555" />
             Firebase Storage
           </span>
         </div>
