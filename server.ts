@@ -2,26 +2,23 @@ import express from "express";
 import path from "path";
 import dotenv from "dotenv";
 import fs from "fs";
-import { initializeApp } from "firebase/app";
-import { getFirestore, doc, getDoc } from "firebase/firestore";
+
 
 // Load environment variables
 dotenv.config();
 
-// Initialize Firebase App & Firestore Database
-let db: any = null;
+// Initialize Firebase App config (No SDK imports to prevent serverless runtime crashes)
+let firebaseConfig: any = null;
 try {
   const firebaseConfigPath = path.join(process.cwd(), "firebase-applet-config.json");
   if (fs.existsSync(firebaseConfigPath)) {
-    const firebaseConfig = JSON.parse(fs.readFileSync(firebaseConfigPath, "utf8"));
-    const firebaseApp = initializeApp(firebaseConfig);
-    db = getFirestore(firebaseApp, firebaseConfig.firestoreDatabaseId);
-    console.log("[Firebase] Backend Firestore client initialized successfully.");
+    firebaseConfig = JSON.parse(fs.readFileSync(firebaseConfigPath, "utf8"));
+    console.log("[Firebase] Backend config loaded successfully.");
   } else {
     console.warn("[Firebase] Config file firebase-applet-config.json not found.");
   }
 } catch (err) {
-  console.error("[Firebase] Initialization failed:", err);
+  console.error("[Firebase] Config loading failed:", err);
 }
 
 const app = express();
@@ -58,21 +55,24 @@ app.post("/api/admin/login-password", async (req, res) => {
       });
     }
 
-    // Check if custom password exists in Firestore under admin_users/{email}
+    // Check if custom password exists in Firestore under admin_users/{email} via dependency-free REST API
     let correctPassword = targetEmail === "jeevanparivartan2@gmail.com" ? "Nashamukti@9082" : "David@9082";
-    if (db) {
+    if (firebaseConfig && firebaseConfig.projectId && firebaseConfig.firestoreDatabaseId) {
       try {
-        const userRef = doc(db, "admin_users", targetEmail);
-        const userDoc = await getDoc(userRef);
-        if (userDoc.exists()) {
-          const data = userDoc.data();
-          if (data.customPassword && typeof data.customPassword === "string" && data.customPassword.trim() !== "") {
-            correctPassword = data.customPassword.trim();
+        const url = `https://firestore.googleapis.com/v1/projects/${firebaseConfig.projectId}/databases/${firebaseConfig.firestoreDatabaseId}/documents/admin_users/${encodeURIComponent(targetEmail)}`;
+        const response = await fetch(url);
+        if (response.ok) {
+          const docData = await response.json();
+          const customPasswordValue = docData?.fields?.customPassword?.stringValue;
+          if (customPasswordValue && customPasswordValue.trim() !== "") {
+            correctPassword = customPasswordValue.trim();
             console.log(`[Auth] Using custom Firestore password for admin: ${targetEmail}`);
           }
+        } else if (response.status !== 404) {
+          console.warn(`[Firebase REST] Non-404 status received: ${response.status}`);
         }
       } catch (dbErr) {
-        console.error("[Firebase] Failed to fetch custom password from Firestore, falling back to default:", dbErr);
+        console.error("[Firebase REST] Failed to fetch custom password from Firestore REST API, falling back to default:", dbErr);
       }
     }
 
