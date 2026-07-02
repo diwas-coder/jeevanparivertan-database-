@@ -1,0 +1,8 @@
+{
+  "name": "Remix2:  Jeevan Parivartan",
+  "description": "Leading De-addiction and Rehabilitation Center in Lucknow, offering compassionate medical and counseling support.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

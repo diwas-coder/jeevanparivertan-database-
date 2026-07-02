@@ -1,0 +1,120 @@
+{
+  "entities": {
+    "Patient": {
+      "title": "Patient",
+      "description": "Represents an active inpatient in the rehabilitation center",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "age": { "type": "string" },
+        "gender": { "type": "string" },
+        "addiction": { "type": "string" },
+        "admissionDate": { "type": "string" },
+        "duration": { "type": "string" },
+        "familyPhone": { "type": "string" },
+        "status": { "type": "string" },
+        "progress": { "type": "number" },
+        "ward": { "type": "string" },
+        "balance": { "type": "number" }
+      },
+      "required": ["id", "name", "balance"]
+    },
+    "Enquiry": {
+      "title": "Enquiry",
+      "description": "Represents a prospect or contact query submitted through the website",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "phone": { "type": "string" },
+        "addiction": { "type": "string" },
+        "message": { "type": "string" },
+        "status": { "type": "string" },
+        "date": { "type": "string" }
+      },
+      "required": ["id", "name", "phone"]
+    },
+    "SessionLog": {
+      "title": "SessionLog",
+      "description": "Represents a log entry for a patient's session or family portal interaction",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "patientId": { "type": "string" },
+        "title": { "type": "string" },
+        "content": { "type": "string" },
+        "date": { "type": "string" },
+        "type": { "type": "string" }
+      },
+      "required": ["id", "patientId", "title", "content", "date", "type"]
+    },
+    "Notice": {
+      "title": "Notice",
+      "description": "Notice board message for display in the family portal",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "content": { "type": "string" },
+        "date": { "type": "string" },
+        "important": { "type": "boolean" }
+      },
+      "required": ["id", "title", "content", "date"]
+    },
+    "FamilyMessage": {
+      "title": "FamilyMessage",
+      "description": "A support message or query submitted by a patient's family",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "patientId": { "type": "string" },
+        "patientName": { "type": "string" },
+        "message": { "type": "string" },
+        "date": { "type": "string" },
+        "status": { "type": "string" }
+      },
+      "required": ["id", "patientId", "message", "date"]
+    },
+    "GalleryItem": {
+      "title": "GalleryItem",
+      "description": "An image or event item in the center's photo gallery",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "category": { "type": "string" },
+        "imageUrl": { "type": "string" },
+        "date": { "type": "string" }
+      },
+      "required": ["id", "title", "imageUrl"]
+    }
+  },
+  "firestore": {
+    "patients/{patientId}": {
+      "schema": { "$ref": "#/entities/Patient" },
+      "description": "Patients collection"
+    },
+    "enquiries/{enquiryId}": {
+      "schema": { "$ref": "#/entities/Enquiry" },
+      "description": "Enquiries collection"
+    },
+    "session_logs/{logId}": {
+      "schema": { "$ref": "#/entities/SessionLog" },
+      "description": "Session logs collection"
+    },
+    "notices/{noticeId}": {
+      "schema": { "$ref": "#/entities/Notice" },
+      "description": "Notices collection"
+    },
+    "family_messages/{messageId}": {
+      "schema": { "$ref": "#/entities/FamilyMessage" },
+      "description": "Family messages collection"
+    },
+    "gallery_items/{itemId}": {
+      "schema": { "$ref": "#/entities/GalleryItem" },
+      "description": "Gallery items collection"
+    }
+  }
+}

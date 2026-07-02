@@ -1,0 +1,6 @@
+{
+  "firestore": {
+    "database": "ai-studio-remixjeevanpariv-9ae9e9d6-7573-468c-a197-1d779357b8d1",
+    "rules": "firestore.rules"
+  }
+}
