@@ -32,6 +32,9 @@ async function startServer() {
   // Middleware to parse JSON payloads
   app.use(express.json());
 
+  // Serve the local image directory statically
+  app.use("/image", express.static(path.join(process.cwd(), "image")));
+
   // --- API Routes ---
 
   // Health check endpoint

@@ -1,11 +1,11 @@
 import { useState } from 'react';
-import { 
-  ShieldCheck, 
-  Users, 
-  BrainCircuit, 
-  ShieldAlert, 
-  Phone, 
-  Sparkles, 
+import {
+  ShieldCheck,
+  Users,
+  BrainCircuit,
+  ShieldAlert,
+  Phone,
+  Sparkles,
   ArrowRight,
   HeartPulse,
   MapPin,
@@ -24,10 +24,10 @@ import {
 import { Screen } from '../types';
 
 // Professional, high-resolution clinical photographs representing Jeevan Parivartan Nasha Mukti Kendra
-const imgDoctor = "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?q=80&w=800&auto=format&fit=crop";
-const imgWard = "https://images.unsplash.com/photo-1586773860418-d37222d8fce3?q=80&w=800&auto=format&fit=crop";
-const imgAquarium = "https://images.unsplash.com/photo-1629909613654-28e377c37b09?q=80&w=800&auto=format&fit=crop";
-const imgGroup = "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?q=80&w=800&auto=format&fit=crop";
+const imgDoctor = "/image/image01.jpeg";
+const imgWard = "/image/image02.jpeg";
+const imgAquarium = "/image/image03.jpeg";
+const imgGroup = "/image/image04.jpeg";
 
 interface HomeViewProps {
   onNavigate: (screen: Screen) => void;
@@ -91,7 +91,7 @@ export default function HomeView({ onNavigate }: HomeViewProps) {
 
   return (
     <div className="bg-stone-50 min-h-screen font-sans">
-      
+
       {/* 1. HERO SECTION WITH SPLIT COLUMN & INTERACTIVE PHOTO SLIDESHOW */}
       <section className="relative min-h-[660px] flex items-center justify-center py-16 px-6 md:px-12 bg-gradient-to-b from-teal-50/90 via-teal-100/20 to-stone-50 overflow-hidden border-b border-teal-100/30">
         {/* Subtle decorative background spheres */}
@@ -100,7 +100,7 @@ export default function HomeView({ onNavigate }: HomeViewProps) {
 
         <div className="relative z-10 max-w-7xl mx-auto w-full">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            
+
             {/* Left Column: Premium Text & Call to Actions */}
             <div className="lg:col-span-7 text-left space-y-6">
               <span className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-teal-100/90 text-teal-950 text-xs font-bold uppercase tracking-wider shadow-sm border border-teal-200">
@@ -127,14 +127,14 @@ export default function HomeView({ onNavigate }: HomeViewProps) {
 
               {/* Core Call to Actions */}
               <div className="flex flex-col sm:flex-row gap-4 pt-2">
-                <a 
+                <a
                   href={callUrl}
                   className="w-full sm:w-auto bg-teal-700 text-white px-7 py-4 rounded-xl font-bold shadow-lg shadow-teal-100/50 flex items-center justify-center gap-2 hover:bg-teal-800 hover:-translate-y-0.5 transition-all duration-150 cursor-pointer"
                 >
                   <Phone className="w-4.5 h-4.5" />
                   Call Hotline: +91 8052948863
                 </a>
-                <a 
+                <a
                   href={whatsappUrl}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -157,11 +157,11 @@ export default function HomeView({ onNavigate }: HomeViewProps) {
             {/* Right Column: Beautiful Interactive Slideshow of Real Photos */}
             <div className="lg:col-span-5 space-y-4">
               <div className="relative rounded-3xl overflow-hidden bg-white border border-slate-200 p-3 shadow-xl">
-                
+
                 {/* Active Image Canvas */}
                 <div className="relative h-[280px] sm:h-[320px] rounded-2xl overflow-hidden bg-slate-100">
-                  <img 
-                    src={realPhotos[activePhotoIndex].img} 
+                  <img
+                    src={realPhotos[activePhotoIndex].img}
                     alt={realPhotos[activePhotoIndex].title}
                     referrerPolicy="no-referrer"
                     className="w-full h-full object-cover transition-all duration-500 hover:scale-105"
@@ -189,21 +189,19 @@ export default function HomeView({ onNavigate }: HomeViewProps) {
                   <button
                     key={photo.id}
                     onClick={() => setActivePhotoIndex(idx)}
-                    className={`relative rounded-xl overflow-hidden h-16 border-2 transition-all cursor-pointer ${
-                      activePhotoIndex === idx 
-                        ? 'border-teal-700 ring-2 ring-teal-100 scale-95' 
+                    className={`relative rounded-xl overflow-hidden h-16 border-2 transition-all cursor-pointer ${activePhotoIndex === idx
+                        ? 'border-teal-700 ring-2 ring-teal-100 scale-95'
                         : 'border-slate-200 hover:border-teal-300'
-                    }`}
+                      }`}
                   >
-                    <img 
-                      src={photo.img} 
-                      alt={photo.title} 
+                    <img
+                      src={photo.img}
+                      alt={photo.title}
                       referrerPolicy="no-referrer"
-                      className="w-full h-full object-cover" 
+                      className="w-full h-full object-cover"
                     />
-                    <div className={`absolute inset-0 bg-slate-950/20 transition-opacity ${
-                      activePhotoIndex === idx ? 'opacity-0' : 'hover:opacity-0'
-                    }`} />
+                    <div className={`absolute inset-0 bg-slate-950/20 transition-opacity ${activePhotoIndex === idx ? 'opacity-0' : 'hover:opacity-0'
+                      }`} />
                   </button>
                 ))}
               </div>
@@ -219,7 +217,7 @@ export default function HomeView({ onNavigate }: HomeViewProps) {
       {/* 3. TRUST CARDS (BENTO STYLE) */}
       <section className="py-20 bg-stone-50 border-t border-stone-200">
         <div className="max-w-7xl mx-auto px-6 md:px-12">
-          
+
           <div className="text-center mb-16">
             <span className="text-teal-700 text-xs font-bold uppercase tracking-widest block mb-2">Our Standards</span>
             <h2 className="text-3xl font-display font-extrabold text-slate-900 tracking-tight">
@@ -228,7 +226,7 @@ export default function HomeView({ onNavigate }: HomeViewProps) {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            
+
             <div className="bg-white p-8 rounded-2xl border border-slate-200/60 shadow-sm hover:shadow-md transition-all duration-200">
               <div className="bg-teal-50 w-12 h-12 rounded-xl flex items-center justify-center mb-6 text-teal-700">
                 <ShieldCheck className="w-6 h-6" />
@@ -280,7 +278,7 @@ export default function HomeView({ onNavigate }: HomeViewProps) {
         <div className="absolute -bottom-40 -left-40 w-96 h-96 rounded-full bg-stone-100/60 blur-3xl" />
 
         <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
-          
+
           {/* Section Header */}
           <div className="max-w-3xl mb-16 space-y-4">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-50 border border-teal-100 text-teal-800 text-[11px] font-bold uppercase tracking-wider">
@@ -296,31 +294,29 @@ export default function HomeView({ onNavigate }: HomeViewProps) {
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 xl:gap-14 items-stretch">
-            
+
             {/* Left Column: Interactive Tabbed Panel & Helplines */}
             <div className="lg:col-span-5 flex flex-col justify-between space-y-8">
-              
+
               <div className="space-y-6">
                 {/* Modern Custom Tabs */}
                 <div className="flex bg-slate-100/80 p-1.5 rounded-2xl border border-slate-200/50">
                   <button
                     onClick={() => setMapTab('address')}
-                    className={`flex-1 py-3 text-xs font-bold rounded-xl transition-all cursor-pointer focus:outline-none flex items-center justify-center gap-2 ${
-                      mapTab === 'address'
+                    className={`flex-1 py-3 text-xs font-bold rounded-xl transition-all cursor-pointer focus:outline-none flex items-center justify-center gap-2 ${mapTab === 'address'
                         ? 'bg-white text-slate-900 shadow-sm'
                         : 'text-slate-500 hover:text-slate-800'
-                    }`}
+                      }`}
                   >
                     <MapPin className={`w-4 h-4 ${mapTab === 'address' ? 'text-teal-700' : 'text-slate-400'}`} />
                     <span>Exact Address</span>
                   </button>
                   <button
                     onClick={() => setMapTab('travel')}
-                    className={`flex-1 py-3 text-xs font-bold rounded-xl transition-all cursor-pointer focus:outline-none flex items-center justify-center gap-2 ${
-                      mapTab === 'travel'
+                    className={`flex-1 py-3 text-xs font-bold rounded-xl transition-all cursor-pointer focus:outline-none flex items-center justify-center gap-2 ${mapTab === 'travel'
                         ? 'bg-white text-slate-900 shadow-sm'
                         : 'text-slate-500 hover:text-slate-800'
-                    }`}
+                      }`}
                   >
                     <Compass className={`w-4 h-4 ${mapTab === 'travel' ? 'text-teal-700' : 'text-slate-400'}`} />
                     <span>How To Reach us</span>
@@ -349,7 +345,7 @@ export default function HomeView({ onNavigate }: HomeViewProps) {
                             <Clock className="w-4 h-4 text-slate-400" />
                             <span>Visits: 9:00 AM - 7:00 PM</span>
                           </div>
-                          
+
                           <button
                             onClick={handleCopyAddress}
                             className="text-xs font-bold text-teal-700 hover:text-teal-800 flex items-center gap-1 bg-teal-50 hover:bg-teal-100 px-3 py-1.5 rounded-lg transition-all cursor-pointer"
@@ -370,7 +366,7 @@ export default function HomeView({ onNavigate }: HomeViewProps) {
                       </div>
 
                       <div className="grid grid-cols-2 gap-4">
-                        <a 
+                        <a
                           href={mapDirectionsUrl}
                           target="_blank"
                           rel="noopener noreferrer"
@@ -379,7 +375,7 @@ export default function HomeView({ onNavigate }: HomeViewProps) {
                           <Navigation className="w-3.5 h-3.5 fill-white" />
                           Get Directions
                         </a>
-                        <a 
+                        <a
                           href={whatsappUrl}
                           target="_blank"
                           rel="noopener noreferrer"
@@ -393,7 +389,7 @@ export default function HomeView({ onNavigate }: HomeViewProps) {
                   ) : (
                     <div className="p-6 rounded-2xl bg-white border border-slate-200/60 shadow-sm space-y-4 animate-in fade-in duration-300">
                       <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400">Convenient Travel Guide</h4>
-                      
+
                       <div className="space-y-3.5 text-slate-700 text-xs sm:text-sm">
                         <div className="flex gap-3">
                           <div className="w-6 h-6 rounded-full bg-slate-100 flex items-center justify-center text-slate-600 font-bold text-[10px] flex-shrink-0 mt-0.5">
@@ -433,7 +429,7 @@ export default function HomeView({ onNavigate }: HomeViewProps) {
               {/* Enhanced Help & Pickups Action Widget */}
               <div className="p-6 rounded-2xl bg-gradient-to-br from-teal-900 to-slate-900 text-white shadow-xl space-y-4 border border-teal-850 relative overflow-hidden">
                 <div className="absolute top-0 right-0 w-32 h-32 bg-teal-800/10 rounded-full blur-2xl" />
-                
+
                 <div className="flex justify-between items-start relative z-10">
                   <div>
                     <span className="text-[10px] font-black text-emerald-400 uppercase tracking-widest bg-emerald-950/60 px-2.5 py-1 rounded-md inline-block">
@@ -445,13 +441,13 @@ export default function HomeView({ onNavigate }: HomeViewProps) {
                     <HeartPulse className="w-5 h-5 animate-pulse" />
                   </div>
                 </div>
-                
+
                 <p className="text-xs text-teal-100 leading-relaxed relative z-10">
                   Call our clinical helpdesk to coordinate urgent medical transfers, confidential admission pickups, or talk with an on-duty medical counselor immediately.
                 </p>
-                
+
                 <div className="pt-2 relative z-10">
-                  <a 
+                  <a
                     href={callUrl}
                     className="inline-flex w-full bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black text-xs sm:text-sm py-3.5 px-4 rounded-xl items-center justify-center gap-2 transition-all shadow-md hover:scale-[1.01] active:scale-[0.99]"
                   >
@@ -465,10 +461,10 @@ export default function HomeView({ onNavigate }: HomeViewProps) {
 
             {/* Right Column: Premium Map Interface & Highlights */}
             <div className="lg:col-span-7 flex flex-col justify-between space-y-6">
-              
+
               {/* Map Holder Card */}
               <div className="flex-1 min-h-[380px] rounded-3xl overflow-hidden shadow-md border border-slate-200/80 relative bg-slate-100 group">
-                <iframe 
+                <iframe
                   src={mapEmbedUrl}
                   width="100%"
                   height="100%"
@@ -479,10 +475,10 @@ export default function HomeView({ onNavigate }: HomeViewProps) {
                   title="Jeevan Parivartan Nasha Mukti Kendra Lucknow Location Map"
                   className="absolute inset-0 w-full h-full"
                 />
-                
+
                 {/* Floating Directions Action Panel */}
                 <div className="absolute bottom-5 left-5 z-10 right-5 sm:right-auto">
-                  <a 
+                  <a
                     href={mapDirectionsUrl}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -557,7 +553,7 @@ export default function HomeView({ onNavigate }: HomeViewProps) {
                   Learn about our multi-disciplinary medical detox pathways for Alcohol, Drugs, Cannabis, Tobacco, and 24/7 Home Pickup.
                 </p>
               </div>
-              <button 
+              <button
                 onClick={() => onNavigate('SERVICES')}
                 className="text-xs font-bold text-teal-400 hover:text-teal-300 flex items-center gap-1.5 transition-all cursor-pointer bg-transparent border-none text-left"
               >
@@ -574,7 +570,7 @@ export default function HomeView({ onNavigate }: HomeViewProps) {
                   Read our history, core philosophy, and learn about our team of senior clinical psychiatrists and medical counselors in Lucknow.
                 </p>
               </div>
-              <button 
+              <button
                 onClick={() => onNavigate('ABOUT')}
                 className="text-xs font-bold text-teal-400 hover:text-teal-300 flex items-center gap-1.5 transition-all cursor-pointer bg-transparent border-none text-left"
               >
@@ -591,7 +587,7 @@ export default function HomeView({ onNavigate }: HomeViewProps) {
                   Talk to a support worker, find our address coordinates in Lucknow, or submit a request for a confidential callback.
                 </p>
               </div>
-              <button 
+              <button
                 onClick={() => onNavigate('CONTACT')}
                 className="text-xs font-bold text-teal-400 hover:text-teal-300 flex items-center gap-1.5 transition-all cursor-pointer bg-transparent border-none text-left"
               >
