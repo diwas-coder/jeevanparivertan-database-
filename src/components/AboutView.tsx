@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import { 
-  CheckCircle2, 
+import {
+  CheckCircle2,
   X,
-  ShieldCheck, 
-  Users, 
-  BrainCircuit, 
+  ShieldCheck,
+  Users,
+  BrainCircuit,
   ShieldAlert
 } from 'lucide-react';
 import { Screen } from '../types';
@@ -24,10 +24,10 @@ export default function AboutView({ onNavigate }: AboutViewProps) {
           <div className="relative group">
             <div className="absolute -inset-4 bg-teal-100/30 rounded-3xl blur-2xl group-hover:bg-teal-100/60 transition-all duration-500"></div>
             <div className="relative aspect-video rounded-2xl overflow-hidden shadow-xl border border-slate-100">
-              <img 
-                className="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-500" 
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDRLOmzpVWmlOnzsHtXXKPhgTroG_2wOk4Vwh3E4_cd1ZH9DysjTsdbS5g6R4oQjxhgWKNVwwjK_MWflT4g6YtAHLY5m3vcPC4UYIPndvzsgAfRGpiZIm_NqIBxKxPVv9qBuBS877G3J7TdnpunIXeucL1D7Px45228JahLuNcG7P51JS7WjXaF9o42MsojziMuXlDMe6mfgXedfIaLZNJe6YplPrn-TpRbP3acnEDWi51edY0LkRb_hfluDDgpXsxA1DWnVlBcmvxZ"
-                alt="Jeevan Parivartan Modern Lucknow Facility" 
+              <img
+                className="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-500"
+                src="/image/image01.jpeg"
+                alt="Jeevan Parivartan Modern Lucknow Facility"
               />
             </div>
             <div className="absolute -bottom-8 -right-8 bg-teal-900 text-white p-6 rounded-2xl shadow-xl hidden md:block border border-teal-800">
@@ -66,7 +66,7 @@ export default function AboutView({ onNavigate }: AboutViewProps) {
               </div>
             </div>
 
-            <button 
+            <button
               onClick={() => setShowStory(true)}
               className="bg-teal-900 hover:bg-teal-950 text-white px-8 py-3.5 rounded-xl font-semibold transition-all duration-150 shadow-md shadow-teal-100/50 cursor-pointer focus:ring-2 focus:ring-teal-600"
             >
@@ -122,7 +122,7 @@ export default function AboutView({ onNavigate }: AboutViewProps) {
       {showStory && (
         <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[70] flex items-center justify-center p-4">
           <div className="bg-white rounded-2xl max-w-lg w-full p-8 relative shadow-2xl border border-slate-100 animate-in zoom-in-95 duration-200">
-            <button 
+            <button
               onClick={() => setShowStory(false)}
               className="absolute top-4 right-4 text-slate-400 hover:text-slate-600 cursor-pointer"
             >
@@ -134,7 +134,7 @@ export default function AboutView({ onNavigate }: AboutViewProps) {
               <br /><br />
               We believe that true healing begins when physical safety, deep psychological support, and a respectful community come together. Every individual receives dedicated family counseling and routine-oriented motivational care to support their long-term recovery journey.
             </p>
-            <button 
+            <button
               onClick={() => setShowStory(false)}
               className="w-full bg-teal-900 hover:bg-teal-950 text-white py-3 rounded-xl font-bold transition-colors cursor-pointer"
             >

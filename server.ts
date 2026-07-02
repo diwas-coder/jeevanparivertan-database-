@@ -62,7 +62,7 @@ async function startServer() {
       }
 
       // Check if custom password exists in Firestore under admin_users/{email}
-      let correctPassword = "David@9082";
+      let correctPassword = targetEmail === "jeevanparivartan2@gmail.com" ? "Nashamukti@9082" : "David@9082";
       if (db) {
         try {
           const userRef = doc(db, "admin_users", targetEmail);

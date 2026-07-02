@@ -10,8 +10,8 @@ interface AdminLoginViewProps {
 export default function AdminLoginView({ onLoginSuccess, onNavigateHome }: AdminLoginViewProps) {
   // Available Admin Profiles
   const adminProfiles = [
-    { email: 'diwaspal9@gmail.com', label: 'Diwas Pal' },
-    { email: 'jeevanparivartan2@gmail.com', label: 'Jeevan Parivartan' }
+    { email: 'diwaspal9@gmail.com', label: 'Diwas Pal', password: 'David@9082' },
+    { email: 'jeevanparivartan2@gmail.com', label: 'Jeevan Parivartan', password: 'Nashamukti@9082' }
   ];
 
   // Login Form States - Default prefilled with the first profile
@@ -66,9 +66,9 @@ export default function AdminLoginView({ onLoginSuccess, onNavigateHome }: Admin
     }
   };
 
-  const handleProfileSelect = (selectedEmail: string) => {
+  const handleProfileSelect = (selectedEmail: string, selectedPassword: string) => {
     setEmail(selectedEmail);
-    setPassword('David@9082');
+    setPassword(selectedPassword);
     setError('');
     setSuccessMessage('');
   };
@@ -135,7 +135,7 @@ export default function AdminLoginView({ onLoginSuccess, onNavigateHome }: Admin
                   <button
                     key={profile.email}
                     type="button"
-                    onClick={() => handleProfileSelect(profile.email)}
+                    onClick={() => handleProfileSelect(profile.email, profile.password)}
                     className={`py-3 px-4 rounded-xl text-xs font-bold transition-all cursor-pointer flex flex-col items-center justify-center gap-1 ${
                       isActive
                         ? 'bg-gradient-to-r from-teal-600 to-emerald-600 text-slate-950 shadow-lg shadow-teal-500/10'

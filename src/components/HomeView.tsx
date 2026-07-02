@@ -24,10 +24,10 @@ import {
 import { Screen } from '../types';
 
 // Professional, high-resolution clinical photographs representing Jeevan Parivartan Nasha Mukti Kendra
-const imgDoctor = "/image/image01.jpeg";
+const imgDoctor = "/image/image04.jpeg";
 const imgWard = "/image/image02.jpeg";
 const imgAquarium = "/image/image03.jpeg";
-const imgGroup = "/image/image04.jpeg";
+const imgGroup = "/image/image01.jpeg";
 
 interface HomeViewProps {
   onNavigate: (screen: Screen) => void;
@@ -190,8 +190,8 @@ export default function HomeView({ onNavigate }: HomeViewProps) {
                     key={photo.id}
                     onClick={() => setActivePhotoIndex(idx)}
                     className={`relative rounded-xl overflow-hidden h-16 border-2 transition-all cursor-pointer ${activePhotoIndex === idx
-                        ? 'border-teal-700 ring-2 ring-teal-100 scale-95'
-                        : 'border-slate-200 hover:border-teal-300'
+                      ? 'border-teal-700 ring-2 ring-teal-100 scale-95'
+                      : 'border-slate-200 hover:border-teal-300'
                       }`}
                   >
                     <img
@@ -304,8 +304,8 @@ export default function HomeView({ onNavigate }: HomeViewProps) {
                   <button
                     onClick={() => setMapTab('address')}
                     className={`flex-1 py-3 text-xs font-bold rounded-xl transition-all cursor-pointer focus:outline-none flex items-center justify-center gap-2 ${mapTab === 'address'
-                        ? 'bg-white text-slate-900 shadow-sm'
-                        : 'text-slate-500 hover:text-slate-800'
+                      ? 'bg-white text-slate-900 shadow-sm'
+                      : 'text-slate-500 hover:text-slate-800'
                       }`}
                   >
                     <MapPin className={`w-4 h-4 ${mapTab === 'address' ? 'text-teal-700' : 'text-slate-400'}`} />
@@ -314,8 +314,8 @@ export default function HomeView({ onNavigate }: HomeViewProps) {
                   <button
                     onClick={() => setMapTab('travel')}
                     className={`flex-1 py-3 text-xs font-bold rounded-xl transition-all cursor-pointer focus:outline-none flex items-center justify-center gap-2 ${mapTab === 'travel'
-                        ? 'bg-white text-slate-900 shadow-sm'
-                        : 'text-slate-500 hover:text-slate-800'
+                      ? 'bg-white text-slate-900 shadow-sm'
+                      : 'text-slate-500 hover:text-slate-800'
                       }`}
                   >
                     <Compass className={`w-4 h-4 ${mapTab === 'travel' ? 'text-teal-700' : 'text-slate-400'}`} />

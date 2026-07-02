@@ -401,12 +401,14 @@ export default function App() {
   };
 
   const handleLogout = () => {
+    // Navigate back to the home page URL first before clearing states
+    // to prevent the auth router from redirecting to /admin-login
+    window.history.pushState(null, '', '/');
     setIsLoggedIn(false);
     setUserType(null);
     setActivePatientId(null);
-    setTimeout(() => {
-      navigateTo('HOME');
-    }, 50);
+    setCurrentScreen('HOME');
+    window.scrollTo(0, 0);
   };
 
   const navigateTo = (screen: Screen) => {
