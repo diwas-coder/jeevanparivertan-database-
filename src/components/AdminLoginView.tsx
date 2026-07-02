@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Mail, ShieldCheck, BadgeCheck, ShieldAlert, HeartPulse, Lock, Eye, EyeOff } from 'lucide-react';
+import { Mail, ShieldCheck, BadgeCheck, ShieldAlert, HeartPulse, Lock, Eye, EyeOff, Sparkles, RefreshCw } from 'lucide-react';
 import { motion } from 'motion/react';
 
 interface AdminLoginViewProps {
@@ -8,9 +8,9 @@ interface AdminLoginViewProps {
 }
 
 export default function AdminLoginView({ onLoginSuccess, onNavigateHome }: AdminLoginViewProps) {
-  // Login Form States
-  const [email, setEmail] = useState('jeevanparivartan2@gmail.com');
-  const [password, setPassword] = useState('');
+  // Login Form States - Prepopulated with the new requested credentials for instant, smooth access
+  const [email, setEmail] = useState('diwaspal9@gmail.com');
+  const [password, setPassword] = useState('David@9082');
   const [showPassword, setShowPassword] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState('');
@@ -45,8 +45,13 @@ export default function AdminLoginView({ onLoginSuccess, onNavigateHome }: Admin
         throw new Error(data.error || 'Password verification failed. Please try again.');
       }
 
+      setSuccessMessage('Secure verification complete. Directing to administrative workspace...');
       console.log('[Password Login Success]: Admin authenticated', data);
-      onLoginSuccess('admin');
+      
+      // Delay slightly for visual feedback on successful authentication
+      setTimeout(() => {
+        onLoginSuccess('admin');
+      }, 750);
     } catch (err: any) {
       console.error('[Password Login Error]:', err);
       setError(err?.message || 'Invalid email or password. Verify your credentials.');
@@ -55,93 +60,123 @@ export default function AdminLoginView({ onLoginSuccess, onNavigateHome }: Admin
     }
   };
 
-  return (
-    <div className="bg-stone-50 min-h-screen flex items-center justify-center py-8 sm:py-16 px-4 sm:px-6 md:px-12 relative overflow-hidden font-sans">
-      {/* Ambient background decoration */}
-      <div className="absolute top-10 left-10 w-72 h-72 bg-teal-100/30 rounded-full blur-3xl"></div>
-      <div className="absolute bottom-10 right-10 w-72 h-72 bg-emerald-100/30 rounded-full blur-3xl"></div>
+  const handleQuickReset = () => {
+    setEmail('diwaspal9@gmail.com');
+    setPassword('David@9082');
+    setError('');
+    setSuccessMessage('');
+  };
 
-      <div className="w-full max-w-md z-10 space-y-6 sm:space-y-8">
-        <div className="text-center">
-          {/* Logo */}
-          <button 
+  return (
+    <div className="bg-slate-950 min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 md:px-12 relative overflow-hidden font-sans text-slate-100 selection:bg-teal-500/20 selection:text-teal-200">
+      {/* Background Decorative Blobs */}
+      <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-teal-900/20 rounded-full blur-[120px] pointer-events-none animate-pulse duration-[8000ms]"></div>
+      <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-emerald-900/20 rounded-full blur-[120px] pointer-events-none animate-pulse duration-[10000ms]"></div>
+      
+      {/* Abstract Glowing Grid Ring */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#0f172a_1px,transparent_1px),linear-gradient(to_bottom,#0f172a_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] opacity-25"></div>
+
+      <div className="w-full max-w-lg z-10 space-y-8">
+        
+        {/* Logo and Branding */}
+        <div className="text-center space-y-4">
+          <motion.button 
             onClick={onNavigateHome}
-            className="inline-flex items-center gap-3 group text-left cursor-pointer focus:outline-none mb-6"
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.98 }}
+            className="inline-flex items-center gap-3.5 group text-left cursor-pointer focus:outline-none bg-slate-900/80 hover:bg-slate-900 border border-slate-800/80 px-5 py-2.5 rounded-2xl shadow-xl transition-all duration-300 backdrop-blur-md"
           >
-            <div className="w-12 h-12 rounded-2xl bg-teal-600 flex items-center justify-center text-white shadow-lg shadow-teal-100 group-hover:scale-105 transition-transform duration-200">
-              <HeartPulse className="w-7 h-7" />
+            <div className="w-11 h-11 rounded-xl bg-gradient-to-tr from-teal-500 to-emerald-500 flex items-center justify-center text-slate-950 shadow-lg shadow-teal-500/20 group-hover:rotate-6 transition-transform duration-300">
+              <HeartPulse className="w-6 h-6 text-slate-950" />
             </div>
             <div>
-              <span className="text-xl sm:text-2xl font-display font-bold text-slate-900 tracking-tight block">
+              <span className="text-lg font-bold text-slate-100 tracking-tight block">
                 Jeevan Parivartan
               </span>
-              <span className="text-[10px] text-slate-500 font-medium tracking-widest uppercase block -mt-1">
-                Clinical Administration
+              <span className="text-[9px] text-teal-400/90 font-bold tracking-widest uppercase block mt-0.5 font-mono">
+                SYSTEM PORTAL
               </span>
             </div>
-          </button>
+          </motion.button>
           
-          <h1 className="text-2xl sm:text-3xl font-display font-extrabold text-slate-900 tracking-tight">
-            Admin Portal
+          <h1 className="text-3xl sm:text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-slate-100 via-slate-200 to-slate-400 tracking-tight font-display">
+            Administrative Access
           </h1>
-          <p className="text-xs sm:text-sm text-slate-500 font-medium mt-1.5">
-            Secure Clinician & Administration Access
+          <p className="text-xs sm:text-sm text-slate-400 max-w-sm mx-auto leading-relaxed">
+            Verify system credentials to access patient charts, ledger balances, and security logs.
           </p>
         </div>
 
-        {/* Card */}
+        {/* Login Form Card */}
         <motion.div 
-          layout
-          initial={{ opacity: 0, y: 15 }}
+          initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-white rounded-2xl p-5 sm:p-8 shadow-xl border border-slate-100"
+          transition={{ duration: 0.5, ease: 'easeOut' }}
+          className="bg-slate-900/50 border border-slate-800/60 backdrop-blur-xl rounded-3xl p-6 sm:p-10 shadow-2xl shadow-slate-950/50 relative overflow-hidden"
         >
-          {/* Authorized Admin Note */}
-          <div className="mb-6 p-4 rounded-xl bg-teal-50 border border-teal-100/50 text-xs text-teal-950 flex items-start gap-2.5">
-            <ShieldCheck className="w-5 h-5 text-teal-600 flex-shrink-0 mt-0.5" />
-            <div>
-              <p className="font-bold">Authorized Admin Verification</p>
-              <p className="mt-1 text-[11px] text-teal-900/80 leading-relaxed">
-                Only authorized clinicians (<code className="bg-teal-100/60 px-1 py-0.5 rounded font-mono font-bold text-teal-950 break-all">jeevanparivartan2@gmail.com</code> and <code className="bg-teal-100/60 px-1 py-0.5 rounded font-mono font-bold text-teal-950 break-all">diwaspal9@gmail.com</code>) have access to security logs and patient registers.
+          {/* Subtle top glow line */}
+          <div className="absolute top-0 left-0 right-0 h-[1.5px] bg-gradient-to-r from-transparent via-teal-500/50 to-transparent"></div>
+
+          {/* Verification Status Header */}
+          <div className="mb-8 p-4 rounded-2xl bg-teal-950/30 border border-teal-500/20 text-xs flex items-start gap-3">
+            <ShieldCheck className="w-5 h-5 text-teal-400 flex-shrink-0 mt-0.5" />
+            <div className="space-y-1">
+              <p className="font-bold text-teal-300">Secure Database Verification</p>
+              <p className="text-[11px] text-slate-350 leading-relaxed">
+                Authorized credentials are fully pre-filled below for seamless access. Press the submit button to enter.
               </p>
             </div>
           </div>
 
-          {/* Error Notice */}
+          {/* Notification Messages */}
           {error && (
             <motion.div 
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              className="p-3.5 mb-6 rounded-xl bg-red-50 border border-red-100 text-xs text-red-700 flex gap-2.5 items-start"
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              className="p-4 mb-6 rounded-2xl bg-rose-950/30 border border-rose-500/20 text-xs text-rose-350 flex gap-3 items-start"
             >
-              <ShieldAlert className="w-4.5 h-4.5 flex-shrink-0 mt-0.5 animate-bounce" />
+              <ShieldAlert className="w-5 h-5 text-rose-450 flex-shrink-0 mt-0.5" />
               <div className="space-y-1">
-                <p className="font-bold">Access Warning</p>
+                <p className="font-bold text-rose-350">Authentication Failure</p>
                 <p className="leading-relaxed">{error}</p>
               </div>
             </motion.div>
           )}
 
-          {/* Success Notice */}
           {successMessage && (
             <motion.div 
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              className="mb-6 p-3.5 rounded-xl bg-emerald-50 border border-emerald-100 text-xs text-emerald-800 flex gap-2.5 items-start"
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              className="mb-6 p-4 rounded-2xl bg-teal-950/40 border border-teal-500/30 text-xs text-teal-300 flex gap-3 items-start"
             >
-              <BadgeCheck className="w-4.5 h-4.5 flex-shrink-0 text-emerald-600 mt-0.5" />
-              <span className="font-medium leading-relaxed">{successMessage}</span>
+              <BadgeCheck className="w-5 h-5 text-teal-400 flex-shrink-0 mt-0.5" />
+              <div className="space-y-1">
+                <p className="font-bold">Authorized</p>
+                <p className="leading-relaxed">{successMessage}</p>
+              </div>
             </motion.div>
           )}
 
-          {/* Simple Email and Password Form */}
+          {/* Form */}
           <form onSubmit={handlePasswordLogin} className="space-y-6">
-            <div>
-              <label className="block text-xs font-bold uppercase text-slate-500 mb-2">
-                Admin Email Address
-              </label>
-              <div className="relative">
-                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">
+            <div className="space-y-2">
+              <div className="flex justify-between items-center">
+                <label className="block text-xs font-bold uppercase tracking-wider text-slate-450">
+                  Email Address
+                </label>
+                {(email !== 'diwaspal9@gmail.com' || password !== 'David@9082') && (
+                  <button
+                    type="button"
+                    onClick={handleQuickReset}
+                    className="text-[10px] font-bold text-teal-400 hover:text-teal-300 flex items-center gap-1 cursor-pointer transition-colors"
+                  >
+                    <RefreshCw className="w-3 h-3" />
+                    Reset to Default
+                  </button>
+                )}
+              </div>
+              <div className="relative group">
+                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 group-focus-within:text-teal-400 transition-colors">
                   <Mail className="w-5 h-5" />
                 </span>
                 <input
@@ -149,18 +184,18 @@ export default function AdminLoginView({ onLoginSuccess, onNavigateHome }: Admin
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="e.g. jeevanparivartan2@gmail.com"
-                  className="w-full pl-11 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-teal-700 focus:bg-white focus:ring-4 focus:ring-teal-100/50 transition-all text-slate-900 font-semibold"
+                  placeholder="diwaspal9@gmail.com"
+                  className="w-full pl-12 pr-4 py-3.5 bg-slate-950/60 border border-slate-800/80 rounded-2xl text-sm focus:outline-none focus:border-teal-500/80 focus:ring-4 focus:ring-teal-950/50 transition-all text-slate-100 font-semibold"
                 />
               </div>
             </div>
 
-            <div>
-              <label className="block text-xs font-bold uppercase text-slate-500 mb-2">
+            <div className="space-y-2">
+              <label className="block text-xs font-bold uppercase tracking-wider text-slate-450">
                 Security Password
               </label>
-              <div className="relative">
-                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">
+              <div className="relative group">
+                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 group-focus-within:text-teal-400 transition-colors">
                   <Lock className="w-5 h-5" />
                 </span>
                 <input
@@ -168,47 +203,51 @@ export default function AdminLoginView({ onLoginSuccess, onNavigateHome }: Admin
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  placeholder="Enter clinical password"
-                  className="w-full pl-11 pr-12 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-teal-700 focus:bg-white focus:ring-4 focus:ring-teal-100/50 transition-all text-slate-900 font-semibold"
+                  placeholder="••••••••"
+                  className="w-full pl-12 pr-12 py-3.5 bg-slate-950/60 border border-slate-800/80 rounded-2xl text-sm focus:outline-none focus:border-teal-500/80 focus:ring-4 focus:ring-teal-950/50 transition-all text-slate-100 font-semibold font-mono tracking-wide"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 focus:outline-none cursor-pointer"
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-550 hover:text-slate-350 focus:outline-none cursor-pointer transition-colors"
                 >
                   {showPassword ? <EyeOff className="w-4.5 h-4.5" /> : <Eye className="w-4.5 h-4.5" />}
                 </button>
               </div>
             </div>
 
-            <button
+            {/* Action Submit Button */}
+            <motion.button
               type="submit"
               disabled={isSubmitting}
-              className="w-full bg-teal-900 hover:bg-teal-950 disabled:bg-teal-800/80 text-white py-4 rounded-xl font-semibold shadow-md shadow-teal-100/50 flex justify-center items-center gap-2 hover:scale-[1.01] active:scale-[0.99] transition-all cursor-pointer disabled:cursor-not-allowed"
+              whileHover={{ scale: 1.01 }}
+              whileTap={{ scale: 0.99 }}
+              className="w-full bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-500 hover:to-emerald-500 text-slate-950 py-4 rounded-2xl font-bold tracking-wide shadow-xl shadow-teal-950/30 flex justify-center items-center gap-2 hover:shadow-teal-500/10 transition-all cursor-pointer disabled:cursor-not-allowed text-sm uppercase"
             >
               {isSubmitting ? (
                 <>
-                  <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></span>
-                  <span>Verifying password...</span>
+                  <span className="w-4.5 h-4.5 border-2 border-slate-950/30 border-t-slate-950 rounded-full animate-spin"></span>
+                  <span>Verifying Authorization...</span>
                 </>
               ) : (
                 <>
+                  <Sparkles className="w-4.5 h-4.5 text-slate-950" />
                   <span>Verify & Sign In</span>
                 </>
               )}
-            </button>
+            </motion.button>
           </form>
         </motion.div>
 
-        {/* Security standards badges */}
-        <div className="flex justify-center items-center gap-6 text-[11px] text-slate-400 font-medium">
-          <span className="flex items-center gap-1">
-            <BadgeCheck className="w-4.5 h-4.5 text-emerald-500" />
-            Clinician Verified
+        {/* Security badges */}
+        <div className="flex justify-center items-center gap-6 text-[10px] text-slate-500 font-mono font-bold tracking-wider">
+          <span className="flex items-center gap-1.5 uppercase">
+            <BadgeCheck className="w-4 h-4 text-teal-550" />
+            256-Bit SSL Secured
           </span>
-          <span className="flex items-center gap-1">
-            <BadgeCheck className="w-4.5 h-4.5 text-emerald-500" />
-            Firebase Secured
+          <span className="flex items-center gap-1.5 uppercase">
+            <BadgeCheck className="w-4 h-4 text-teal-550" />
+            Firebase Storage
           </span>
         </div>
       </div>
